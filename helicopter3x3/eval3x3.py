@@ -5,12 +5,13 @@ import pandas as pd
 
 from collections import defaultdict
 import helicopter3x3
+
+# New regions tree not incorporated yet
 import regions_tree_3x3
 
 from utils import *
 from NN import layers, DoubleDQN 
 from RM import ReplayMemory 
-
 
 
 counts = defaultdict(lambda: 0)
@@ -163,6 +164,13 @@ def run(f,n,**args):
         ereach, ecrash = evaluate(nnets)
         print("reached/crashed = {}/{}".format(ereach, ecrash))
         f.write("{},{},{},{},{}\n".format(n,e,h.history['loss'][-1],ereach, ecrash))
+
+    if args['regions']:
+        r = "reg"
+    else:
+        r = "no_reg"
+
+    nnets.predict_model.save("nets/NN_{0}_{1}.h5".format(r,n))
 
 import argparse
 

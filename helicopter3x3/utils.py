@@ -14,8 +14,9 @@ def generate_random_maps(size):
         n , ix = r[i]
         p = helicopter3x3.Position(*np.unravel_index(ix,(3,3)))
         data[n][p] = True
+    
     return data
-
+    
 
 def random_move():
     ix = int(np.random.uniform(9))
